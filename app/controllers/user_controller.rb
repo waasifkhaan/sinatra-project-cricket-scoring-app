@@ -13,20 +13,24 @@ class UsersController < ApplicationController
   end
 
   post '/signup' do
-    if params[:username].empty? || params[:email].empty? || params[:password].empty?
+
+    if params[:username]== ""|| params[:email_address]== "" || params[:password]== "" || params[:password] != params[:passwordmatch]
+
       redirect to "/signup"
     else
-      @user = User.create(params)
+      @user = User.create(name: params[:name], username: params[:username], email_address: params[:email_address], password: params[:password])
       session[:user_id] = @user.id
-      redirect to "/tweets"
+      # binding.pry
+
+      redirect to "/login"
     end
   end
 
   get '/login' do
     if logged_in?
-      redirect to "/tweets"
+
     else
-      erb :"/users/login"
+      redirect to '/login'
     end
   end
 
@@ -35,7 +39,8 @@ class UsersController < ApplicationController
     @user = User.find_by(username: params[:username])
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
-      redirect to "/tweets"
+
+      erb: "/games/index"
 
     else
       redirect to "/signup"
