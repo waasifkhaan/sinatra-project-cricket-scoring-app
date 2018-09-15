@@ -5,6 +5,8 @@ class ApplicationController < Sinatra::Base
   configure do
     set :public_folder, 'public'
     set :views, 'app/views'
+    set :session_secret, "cover_drive"
+    enable :sessions
   end
 
   get '/' do
