@@ -6,9 +6,7 @@ class UsersController < ApplicationController
   end
 
   get '/signup' do
-
-      erb :'users/signup', locals: {message: "Please sign up before you sign in"}
-
+    erb :'users/signup', locals: {message: "Please sign up before you sign in"}
   end
 
   post '/signup' do
