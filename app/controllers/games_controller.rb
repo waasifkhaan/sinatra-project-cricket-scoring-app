@@ -12,4 +12,9 @@ class GamesController < ApplicationController
     end
   end
 
+  post '/games' do
+    "Hello World"
+    binding.pry
+  end
+
 end
