@@ -1,14 +1,10 @@
 <h2>Add a new game!</h2>
 <h3>Pick the two teams that participated in this game</h2>
 
-<form action="/games" method="POST">
+<form action="/games/teams" method="POST">
     <% Team.all.each do |team| %>
       <label><%=team.name%></label>
-      <input id="<%= team.name %>" type="checkbox" name="teams" value="<%= team.id %>"><br>
-
-<%team.players.each do |player|%>
-   <%=player.name%>:<input type="text" name="players[<%player.name%>]"></input><br>
-  <%end%><br>
+      <input id="<%= team.name %>" type="checkbox" name="teams[]" value="<%= team.id %>"><br>
 <% end %><br></br>
   <input type="submit" value="Post Result"></input>
 

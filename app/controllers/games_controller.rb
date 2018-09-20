@@ -11,10 +11,17 @@ class GamesController < ApplicationController
       redirect to '/login'
     end
   end
-
-  post '/games' do
-    "Hello World"
-    binding.pry
+  post '/games/teams' do
+    @team_1 = Team.find_by(id: params[:teams][0])
+    @team_2 = Team.find_by(id: params[:teams][1])
+    erb :'/games/player'
   end
+
+  # post '/games' do
+  #   "Hello World"
+  #
+  # end
+
+
 
 end
