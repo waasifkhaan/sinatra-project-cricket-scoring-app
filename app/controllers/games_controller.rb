@@ -21,13 +21,13 @@ class GamesController < ApplicationController
     @players_1 = []
     i = 0
     while i < 11 do
-      @players_1 << Player.find_by(id: params[:players_1][i])
+      @players_1 << Player.find_by(id: params[:players_1][i]) if Player.find_by(id: params[:players_1][i]) != nil
       i = i + 1
     end
     @players_2 = []
     i = 0
     while i < 11 do
-      @players_2 << Player.find_by(id: params[:players_2][i])
+      @players_2 << Player.find_by(id: params[:players_2][i]) if Player.find_by(id: params[:players_2][i]) != nil
       i = i + 1
     end
     erb :'/games/new2'

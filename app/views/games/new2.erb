@@ -1,8 +1,17 @@
+
 <%binding.pry%>
-<%@players_1.each do |bat| %>
-<%=bat.name%>
+<%@players_1.each do |player| %>
+<%=player.name%><br>
+<%end%>
+<%@players_2.each do |player| %>
+<%=player.name%><br>
 <%end%>
 
-<%@players_2.each do |bat| %>
-<%=bat.name%>
-<%end%>
+<form action="/games/teams" method="POST">
+    <% Team.all.each do |team| %>
+      <label><%=team.name%></label>
+      <input id="<%= team.name %>" type="checkbox" name="teams[]" value="<%= team.id %>"><br>
+<% end %><br></br>
+  <input type="submit" value="Post Result"></input>
+
+</form>
