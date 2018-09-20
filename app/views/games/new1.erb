@@ -1,0 +1,14 @@
+<form action="/games/teams/players" method="POST">
+  <h2><%=@team_1.name %><br></br></h2>
+  <% @team_1.players.each do |player| %>
+    <label><%=player.name%></label>
+    <input id="<%= player.name %>" type="checkbox" name="players_1[]" value="<%= player.id %>"><br>
+<% end %><br></br>
+<h2><%=@team_2.name %><br></br></h2>
+<% @team_2.players.each do |player| %>
+  <label><%=player.name%></label>
+  <input id="<%= player.name %>" type="checkbox" name="players_2[]" value="<%= player.id %>"><br>
+<% end %><br></br>
+<input type="submit" value="Post Result"></input>
+
+</form>

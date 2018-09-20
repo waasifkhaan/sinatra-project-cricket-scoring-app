@@ -14,9 +14,24 @@ class GamesController < ApplicationController
   post '/games/teams' do
     @team_1 = Team.find_by(id: params[:teams][0])
     @team_2 = Team.find_by(id: params[:teams][1])
-    erb :'/games/player'
+    erb :'/games/new1'
   end
-
+  post '/games/teams/players' do
+    # binding.pry
+    @players_1 = []
+    i = 0
+    while i < 11 do
+      @players_1 << Player.find_by(id: params[:players_1][i])
+      i = i + 1
+    end
+    @players_2 = []
+    i = 0
+    while i < 11 do
+      @players_2 << Player.find_by(id: params[:players_2][i])
+      i = i + 1
+    end
+    erb :'/games/new2'
+  end
   # post '/games' do
   #   "Hello World"
   #
