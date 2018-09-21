@@ -1,17 +1,20 @@
+<h1>Please enter the runs each player scored in the game </<h2>
 
-<%binding.pry%>
-<%@players_1.each do |player| %>
-<%=player.name%><br>
-<%end%>
-<%@players_2.each do |player| %>
-<%=player.name%><br>
-<%end%>
-
-<form action="/games/teams" method="POST">
-    <% Team.all.each do |team| %>
-      <label><%=team.name%></label>
-      <input id="<%= team.name %>" type="checkbox" name="teams[]" value="<%= team.id %>"><br>
+<form action="/games" method="POST">
+    <% @players_1.each do |player| %>
+      <label><%=player.name%></label>
+      <input id="<%= player.name %>" type="text" name="players[<%=player.name%>]"><br>
+      <input type="number" name="runs"><br>
 <% end %><br></br>
-  <input type="submit" value="Post Result"></input>
+
+<% @players_2.each do |player| %>
+  <label><%=player.name%></label>
+  <input id="<%= player.name %>" type="number" name="<%=player.name%>"><br>
+<% end %><br></br>
+<input id="no_balls" type="number" name="no_balls"><br>No ball: </input>
+<input id="bye" type="number" name="byes"><br>bye:  </input>
+<input id="leg_bye" type="number" name="leg_byes"><br> leg bye  </input>
+<input id="wide_balls" type="number" name="wide_balls"><br> wide balls:  </input>
+<input type="submit" value="Post Result"></input>
 
 </form>

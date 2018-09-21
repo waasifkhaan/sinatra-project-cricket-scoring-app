@@ -32,10 +32,14 @@ class GamesController < ApplicationController
     end
     erb :'/games/new2'
   end
-  # post '/games' do
-  #   "Hello World"
-  #
-  # end
+
+  post '/games' do
+      params[:players].each do |player|
+
+        @player = Player.find_by(name: player[0])
+        binding.pry
+      end
+  end
 
 
 
