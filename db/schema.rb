@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180913015623) do
+ActiveRecord::Schema.define(version: 20180922013121) do
 
   create_table "clubs", force: :cascade do |t|
     t.string "name"
@@ -23,26 +23,23 @@ ActiveRecord::Schema.define(version: 20180913015623) do
     t.string "awayteam"
     t.string "toss"
     t.string "result"
-
-    #build a realationship between team models
   end
-
-  create_table "scores",
-  t.integer "game_id"
-  t.integer "player_id"
-  t.integer "runs"
-end
 
   create_table "players", force: :cascade do |t|
     t.string  "name"
     t.integer "team_id"
-
   end
 
-  # create_table "teams", force: :cascade do |t|
-  #   t.string  "name"
-  #   t.integer "club_id"
-  # end
+  create_table "scores", force: :cascade do |t|
+    t.integer "game_id"
+    t.integer "player_id"
+    t.integer "runs"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string  "name"
+    t.integer "club_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"

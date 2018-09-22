@@ -1,20 +1,47 @@
-<h1>Please enter the runs each player scored in the game </<h2>
-
+<h1>Please enter the runs each player scored in the game </h2>
 <form action="/games" method="POST">
-    <% @players_1.each do |player| %>
-      <label><%=player.name%></label>
-      <input id="<%= player.name %>" type="text" name="players[<%=player.name%>]"><br>
-      <input type="number" name="runs"><br>
-<% end %><br></br>
+  <h2>Team batting first!</h2>
+  <table>
+  <tr>
+    <th>Batsman Name</th>
+    <th>Runs scored</th>
+  </tr>
+<% @players_1.each do |player| %>
+  <tr>
+    <td><label><%=player.name%></label></td>
+    <td><input id="<%= player.name %>" type="number" name="players[<%=player.name%>]"></td>
+    <% end %><br></br>
+    <tr>
+      <th>Extras</th>
+      <th><input id="extras_1" type="number" name="extras_1"></input></th>
+    </tr>
+    <tr>
+      <th>Total</th>
+      <th><input id="total_1" type="number" name="total_1"></input></th>
+    </tr>
+  </table><br></br>
 
+  <h2>Team batting Second!</h2>
+  <table>
+  <tr>
+    <th>Batsman Name</th>
+    <th>Runs scored</th>
+  </tr>
 <% @players_2.each do |player| %>
-  <label><%=player.name%></label>
-  <input id="<%= player.name %>" type="number" name="<%=player.name%>"><br>
-<% end %><br></br>
-<input id="no_balls" type="number" name="no_balls"><br>No ball: </input>
-<input id="bye" type="number" name="byes"><br>bye:  </input>
-<input id="leg_bye" type="number" name="leg_byes"><br> leg bye  </input>
-<input id="wide_balls" type="number" name="wide_balls"><br> wide balls:  </input>
+  <tr>
+    <td><label><%=player.name%></label></td>
+    <td><input id="<%= player.name %>" type="number" name="players[<%=player.name%>]"></td>
+    <% end %><br></br>
+    <tr>
+      <th>Extras</th>
+      <th><input id="extras_2" type="number" name="extras_2"></input></th>
+    </tr>
+    <tr>
+      <th>Total</th>
+      <th><input id="total_2" type="number" name="total_2"></input></th>
+    </tr>
+  </table><br></br>
+
 <input type="submit" value="Post Result"></input>
 
 </form>
