@@ -5,6 +5,7 @@ class CreateGames < ActiveRecord::Migration
       t.string :awayteam
       t.string :toss
       t.string :result
+      t.integer :user_id
 
     end
   end
