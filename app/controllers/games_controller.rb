@@ -17,8 +17,8 @@ class GamesController < ApplicationController
     @team_2 = Team.find_by(id: params[:teams][1])
     @toss_won = Team.find_by(id: params[:toss])
     @result = Team.find_by(id: params[:result])
-    @game = Game.new(hometeam: @team_1, awayteam: @team_2, toss: @toss_won, result: @result )
 
+    @game.save
     erb :'/games/new1'
   end
   post '/games/teams/players' do
@@ -32,13 +32,20 @@ class GamesController < ApplicationController
   end
 
   post '/games' do
-    binding.pry
-      params[:players].each do |player|
+        @game = Game.new(hometeam: Team.find_by(params[:hometeam]) , awayteam: Team.find_by(params[:awayteam]) , toss: Team.find_by(params[:toss]), result: Team.find_by(params[:result]))
+        @game.save
+      @scores = params[:players].map do |player|
+        @player = Player.find_by(id: player[0])
+        @score = Score.new(runs: player[1])
+        @score.player_id = @player.id
+        @score.game_id = @game.id
+        @score.save
 
-        @player = Player.find_by(name: player[0])
-        @runs = player[1]
+
 
       end
+        erb :'games/index'
+          binding.pry
   end
 
 

@@ -3,7 +3,6 @@ class CreateScores < ActiveRecord::Migration
     create_table :scores do |t|
       t.integer :game_id
       t.integer :player_id
-      t.integer :runs
-    end
+
   end
 end

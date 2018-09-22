@@ -25,16 +25,6 @@ ActiveRecord::Schema.define(version: 20180922013121) do
     t.string "result"
   end
 
-  create_table "players", force: :cascade do |t|
-    t.string  "name"
-    t.integer "team_id"
-  end
-
-  create_table "scores", force: :cascade do |t|
-    t.integer "game_id"
-    t.integer "player_id"
-    t.integer "runs"
-  end
 
   create_table "teams", force: :cascade do |t|
     t.string  "name"

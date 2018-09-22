@@ -1,6 +1,27 @@
 <h1>Please enter the runs each player scored in the game </h2>
 <form action="/games" method="POST">
-  <h2>Team batting first!</h2>
+  <h3>HomeTeam!</h3>
+  <select name="hometeam">
+    <%Team.all.each do |team|%>
+      <option value="<%=team.id%>"><%=team.name%></option>
+    <%end%>
+  </select>
+  <h3>AwayTeam!</h3>
+  <select name="awayteam">
+    <%Team.all.each do |team|%>
+      <option value="<%=team.id%>"><%=team.name%></option>
+    <%end%>
+  </select>
+
+  <h3>Which team won the toss!</h3>
+  <select name="toss">
+    <%Team.all.each do |team|%>
+      <option value="<%=team.id%>"><%=team.name%></option>
+    <%end%>
+  </select>
+  <br><br>
+
+
   <table>
   <tr>
     <th>Batsman Name</th>
@@ -9,7 +30,7 @@
 <% @players_1.each do |player| %>
   <tr>
     <td><label><%=player.name%></label></td>
-    <td><input style="background-color:powderblue; value="<%= player.id %>" id="<%= player.name %>" type="number" name="players[<%=player.name%>]"></td>
+    <td><input style="background-color:powderblue;  id="<%= player.name %>" type="number" name="players[<%=player.id%>]"></td>
     <% end %><br></br>
     <tr>
       <th>Extras</th>
@@ -21,7 +42,7 @@
     </tr>
   </table><br></br>
 
-  <h2>Team batting Second!</h2>
+
   <table>
   <tr>
     <th>Batsman Name</th>
@@ -30,7 +51,7 @@
 <% @players_2.each do |player| %>
   <tr>
     <td><label><%=player.name%></label></td>
-    <td><input style="background-color:powderblue; value="<%= player.id %>" id="<%= player.name %>" type="number" name="players[<%=player.name%>]"></td>
+    <td><input style="background-color:powderblue; value="<%= player.id %>" id="<%= player.name %>" type="number" name="players[<%=player.id%>]"></td>
     <% end %><br></br>
     <tr>
       <th>Extras</th>
@@ -41,6 +62,13 @@
       <th><input style="background-color:pink;  id="total_2" type="number" name="total_2"></input></th>
     </tr>
   </table><br></br>
+
+  <h3>Which team won the game!</h3>
+  <select name="result">
+    <%Team.all.each do |team|%>
+      <option value="<%=team.id%>"><%=team.name%></option>
+    <%end%>
+  </select><br></br>
 
 <input type="submit" value="Post Scorecard!"></input>
 

@@ -5,19 +5,7 @@
       <label><%=team.name%></label>
       <input id="<%= team.name %>" type="checkbox" name="teams[]" value="<%= team.id %>"><br>
     <% end %><br></br>
-<h3>Which team won the toss!</h3>
-<select name="toss">
-  <%Team.all.each do |team|%>
-    <option value="<%=team.id%>"><%=team.name%></option>
-  <%end%>
-</select>
-<br><br>
-<h3>Which team won the game!</h3>
-<select name="result">
-  <%Team.all.each do |team|%>
-    <option value="<%=team.id%>"><%=team.name%></option>
-  <%end%>
-</select>
+
 <br><br>
 <input type="submit" value="Submit to enter game details!"></input>
 </form>
