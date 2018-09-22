@@ -1,13 +1,29 @@
 <form action="/games/teams/players" method="POST">
   <h2><%=@team_1.name %><br></br></h2>
+  <table>
+  <tr>
+    <th>Player Name</th>
+    <th>Select</th>
+  </tr>
     <% @team_1.players.each do |player| %>
-      <label><%=player.name%></label>
-        <input id="<%= player.name %>" type="checkbox" name="players_1[]" value="<%= player.id %>"><br>
-    <% end %><br></br>
-  <h2><%=@team_2.name %><br></br></h2>
-    <% @team_2.players.each do |player| %>
-      <label><%=player.name%></label>
-        <input id="<%= player.name %>" type="checkbox" name="players_2[]" value="<%= player.id %>"><br>
-    <% end %><br></br>
-<input type="submit" value="Submit Team"></input>
+    <tr>
+      <th><%=player.name%></th>
+      <th><input id="<%= player.name %>" type="checkbox" name="players_1[]" value="<%= player.id %>"></th>
+    </tr>
+    <% end %>
+  </table><br></br>
+    <h2><%=@team_2.name %><br></br></h2>
+    <table>
+    <tr>
+      <th>Player Name</th>
+      <th>Select</th>
+    </tr>
+      <% @team_2.players.each do |player| %>
+      <tr>
+        <th><%=player.name%></th>
+        <th><input id="<%= player.name %>" type="checkbox" name="players_2[]" value="<%= player.id %>"></th>
+      </tr>
+      <% end %>
+    </table><br>
+<input type="submit" value="Submit Teams"></input>
 </form>

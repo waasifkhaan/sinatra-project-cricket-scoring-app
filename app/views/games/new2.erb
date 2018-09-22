@@ -9,7 +9,7 @@
 <% @players_1.each do |player| %>
   <tr>
     <td><label><%=player.name%></label></td>
-    <td><input id="<%= player.name %>" type="number" name="players[<%=player.name%>]"></td>
+    <td><input value="<%= player.id %>" id="<%= player.name %>" type="number" name="players[<%=player.name%>]"></td>
     <% end %><br></br>
     <tr>
       <th>Extras</th>
@@ -30,7 +30,7 @@
 <% @players_2.each do |player| %>
   <tr>
     <td><label><%=player.name%></label></td>
-    <td><input id="<%= player.name %>" type="number" name="players[<%=player.name%>]"></td>
+    <td><input value="<%= player.id %>" id="<%= player.name %>" type="number" name="players[<%=player.name%>]"></td>
     <% end %><br></br>
     <tr>
       <th>Extras</th>
@@ -42,6 +42,6 @@
     </tr>
   </table><br></br>
 
-<input type="submit" value="Post Result"></input>
+<input type="submit" value="Post Scorecard!"></input>
 
 </form>

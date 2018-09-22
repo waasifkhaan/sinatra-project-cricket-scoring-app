@@ -32,6 +32,7 @@ class GamesController < ApplicationController
   end
 
   post '/games' do
+    binding.pry
       params[:players].each do |player|
 
         @player = Player.find_by(name: player[0])
