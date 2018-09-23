@@ -17,8 +17,6 @@ class GamesController < ApplicationController
     @team_2 = Team.find_by(id: params[:teams][1])
     @toss_won = Team.find_by(id: params[:toss])
     @result = Team.find_by(id: params[:result])
-
-    @game.save
     erb :'/games/new1'
   end
   post '/games/teams/players' do
