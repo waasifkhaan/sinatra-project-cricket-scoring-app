@@ -1,0 +1,9 @@
+<h3>Would you like to add a new player!</h3><br>
+<form action="/players" method="POST">
+  Player Name:<input type="text" name="player_name"></input><br></br>
+  <% Team.all.each do |team| %>
+    <label><%=team.name%></label>
+    <input id="<%= team.name %>" type="checkbox" name="team_name" value="<%= team.id %>"><br>
+  <% end %><br></br>
+  <input type="submit" value="Add new player"></input>
+</form><br>

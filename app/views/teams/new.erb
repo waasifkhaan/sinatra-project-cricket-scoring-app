@@ -1,5 +1,10 @@
-<h3>Would you like to add a new team!</h3>
-<form action="teams/new" method="POST">
-  Team Name:<input type="text" name="team_name"></input>
+<h3>Would you like to add a new team!</h3><br>
+<form action="/teams" method="POST">
+  Team Name:<input type="text" name="team_name"></input><br></br>
+  <p><strong>Select the club this new team belongs to </strong></p>
+  <% Club.all.each do |club| %>
+    <label><%=club.name%></label>
+    <input id="<%= club.name %>" type="checkbox" name="club_name" value="<%= club.id %>">
+  <% end %><br></br>
   <input type="submit" value="Add new Team!"></input>
 </form><br>
