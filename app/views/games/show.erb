@@ -1,12 +1,46 @@
+<h2><%=Team.find(Player.find(@scores_1[0].player_id).team_id).name%></h2>
 <table>
 <tr>
   <th >Player Name</th>
   <th >Score</th>
 </tr>
-<% @scores.each do |score| %>
+<% @scores_1.each do |score| %>
+<tr>
+      <td><label><%=Player.find(score.player_id).name%></label></td>
+      <td><%=score.run %></td>
+</tr>
+
+  <% end %>
+  <tr>
+        <td><label>Extra runs</label></td>
+        <td><%=@game.extra_1 %></td>
+  </tr>
+  <tr>
+        <td><label>Total</label></td>
+        <td><%=@game.total_1 %></td>
+  </tr>
+
+</table><br></br>
+<h2><%=Team.find(Player.find(@scores_2[0].player_id).team_id).name%></h2>
+<table>
+<tr>
+  <th >Player Name</th>
+  <th >Score</th>
+</tr>
+<% @scores_2.each do |score| %>
 <tr>
       <td><label><%=Player.find(score.player_id).name%></label></td>
       <td><%=score.run %></td>
 </tr>
   <% end %>
+  <tr>
+        <td><label>Extra runs</label></td>
+        <td><%=@game.extra_2 %></td>
+  </tr>
+  <tr>
+        <td><label>Total</label></td>
+        <td><%=@game.total_2 %></td>
+  </tr>
+
+
 </table><br></br>

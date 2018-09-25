@@ -35,30 +35,30 @@ class GamesController < ApplicationController
   end
 
   post '/games' do
-    # binding.pry
 
-        @hometeam = Team.find(params[:hometeam]).name
-        @awayteam = Team.find(params[:awayteam]).name
-        @toss = Team.find(params[:toss]).name
-        @result = Team.find(params[:result]).name
+        @game = Game.create(hometeam: Team.find(params[:hometeam]).name, awayteam: Team.find(params[:awayteam]).name,
+         toss: Team.find(params[:toss]).name, result: Team.find(params[:result]).name, extra_1: params[:extras_1], extra_2: params[:extras_2], total_1: params[:total_1],
+         total_2: params[:total_2] )
 
-        @game = Game.new
-        @game.hometeam = @hometeam
-        @game.awayteam = @awayteam
-        @game.toss = @toss
-        @game.result = @result
-        @game.save
-
-
-      @scores = params[:players].map do |player|
+        @scores_1 = params[:players_1].map do |player|
         @player = Player.find_by(id: player[0])
-        @score = Score.new(run: player[1])
-        @score.player_id = @player.id
-        @score.game_id = @game.id
-        @score.save
-        @score
+        @score_1 = Score.new(run: player[1])
+        @score_1.player_id = @player.id
+        @score_1.game_id = @game.id
+        @score_1.save
+        @score_1
 
       end
+
+      @scores_2 = params[:players_2].map do |player|
+      @player = Player.find_by(id: player[0])
+      @score_2 = Score.new(run: player[1])
+      @score_2.player_id = @player.id
+      @score_2.game_id = @game.id
+      @score_2.save
+      @score_2
+
+    end
 
         erb :'games/show'
 

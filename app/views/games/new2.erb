@@ -21,7 +21,7 @@
   </select>
   <br><br>
 
-
+<h2><%=Team.find(@players_1[0].team_id)%></h2>
   <table>
   <tr>
     <th>Batsman Name</th>
@@ -30,7 +30,7 @@
 <% @players_1.each do |player| %>
   <tr>
     <td><label><%=player.name%></label></td>
-    <td><input style="background-color:powderblue;  id="<%= player.name %>" type="number" name="players[<%=player.id%>]"></td>
+    <td><input style="background-color:powderblue;  id="<%= player.name %>" type="number" name="players_1[<%=player.id%>]"></td>
     <% end %><br></br>
     <tr>
       <th>Extras</th>
@@ -42,7 +42,7 @@
     </tr>
   </table><br></br>
 
-
+<h2><%=Team.find(@players_2[0].team_id)%></h2>
   <table>
   <tr>
     <th>Batsman Name</th>
@@ -51,7 +51,7 @@
 <% @players_2.each do |player| %>
   <tr>
     <td><label><%=player.name%></label></td>
-    <td><input style="background-color:powderblue; value="<%= player.id %>" id="<%= player.name %>" type="number" name="players[<%=player.id%>]"></td>
+    <td><input style="background-color:powderblue; value="<%= player.id %>" id="<%= player.name %>" type="number" name="players_2[<%=player.id%>]"></td>
     <% end %><br></br>
     <tr>
       <th>Extras</th>
