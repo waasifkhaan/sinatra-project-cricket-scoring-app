@@ -57,10 +57,14 @@ class GamesController < ApplicationController
         @score.game_id = @game.id
         @score.save
         @score
+
       end
 
-        erb :'games/index'
+        erb :'games/show'
 
   end
+    get '/games/:id' do
 
+        "Hello world"
+    end
 end

@@ -4,17 +4,22 @@
 <h3>Would you like to add a new team!</h3>
 <form action="teams/new" method="POST">
   Team Name:<input type="text" name="team_name"></input>
-  <input type="submit" value="Submit to enter game details!"></input>
+  <input type="submit" value="Submit to make a new team!"></input>
 </form><br>
 
-<h3>Would you like to add a new team!</h3>
+<h3>Would you like to add a new player!</h3>
 <form action="players/new" method="POST">
-  Player Name:<input type="text" name="team_name"></input>
-  <input type="submit" value="Submit to enter game details!"></input>
+  Player Name:<input type="text" name="player_name"></input>
+  <input type="submit" value="Submit to make a new player!"></input><br>
+  <% Team.all.each do |team| %>
+    <label><%=team.name%></label>
+    <input id="<%= team.name %>" type="checkbox" name="team_name" value="<%= team.id %>">
+  <% end %><br></br>
+
 </form><br>
 <h2>Click the links below to view the scorecard! </h2>
 <%Game.all.each do |game| %>
-<h3><%=game.hometeam%> VS <%=game.awayteam%> and won by <%=game.result%></h3>
+<h3><a href="games/<%=game.id%>"><%=game.hometeam%> VS <%=game.awayteam%> and won by <%=game.result%></h3></a>
 <%end%>
 <h4>The most recent game <%=@game.hometeam%> VS <%=@game.awayteam%> and won by <%=@game.result%></h4>
 <a href="/logout">Logout</a>
