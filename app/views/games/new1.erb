@@ -1,5 +1,6 @@
 <form action="/games/teams/players" method="POST">
-  <h2><%=@team_1.name %><br></br></h2>
+  <h2 ><%=@team_1.name %><br></br></h2>
+  <input type="hidden" name="team_1" value="<%=@team_1.name%>"></input>
   <table>
   <tr>
     <th >Player Name</th>
@@ -13,6 +14,7 @@
     <% end %>
   </table><br></br>
     <h2><%=@team_2.name %><br></br></h2>
+    <input type="hidden" name="team_2" value="<%=@team_2.name%>"></input>
     <table>
     <tr>
       <th>Player Name</th>

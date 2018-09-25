@@ -2,26 +2,24 @@
 <form action="/games" method="POST">
   <h3>HomeTeam!</h3>
   <select name="hometeam">
-    <%Team.all.each do |team|%>
-      <option value="<%=team.id%>"><%=team.name%></option>
-    <%end%>
+    <option value="<%=@two_teams[0]%>"><%=@two_teams[0]%></option>
+      <option value="<%=@two_teams[1]%>"><%=@two_teams[1]%></option>
+
   </select>
   <h3>AwayTeam!</h3>
   <select name="awayteam">
-    <%Team.all.each do |team|%>
-      <option value="<%=team.id%>"><%=team.name%></option>
-    <%end%>
+    <option value="<%=@two_teams[0]%>"><%=@two_teams[0]%></option>
+      <option value="<%=@two_teams[1]%>"><%=@two_teams[1]%></option>
   </select>
 
   <h3>Which team won the toss!</h3>
   <select name="toss">
-    <%Team.all.each do |team|%>
-      <option value="<%=team.id%>"><%=team.name%></option>
-    <%end%>
+    <option value="<%=@two_teams[0]%>"><%=@two_teams[0]%></option>
+      <option value="<%=@two_teams[1]%>"><%=@two_teams[1]%></option>
   </select>
   <br><br>
 
-<h2><%=Team.find(@players_1[0].team_id)%></h2>
+  <h2><%=Team.find(@players_1[0].team_id).name%></h2>
   <table>
   <tr>
     <th>Batsman Name</th>
@@ -42,7 +40,7 @@
     </tr>
   </table><br></br>
 
-<h2><%=Team.find(@players_2[0].team_id)%></h2>
+<h2><%=Team.find(@players_2[0].team_id).name%></h2>
   <table>
   <tr>
     <th>Batsman Name</th>
@@ -65,9 +63,8 @@
 
   <h3>Which team won the game!</h3>
   <select name="result">
-    <%Team.all.each do |team|%>
-      <option value="<%=team.id%>"><%=team.name%></option>
-    <%end%>
+    <option value="<%=@two_teams[0]%>"><%=@two_teams[0]%></option>
+      <option value="<%=@two_teams[1]%>"><%=@two_teams[1]%></option>
   </select><br></br>
 
 <input type="submit" value="Post Scorecard!"></input>
