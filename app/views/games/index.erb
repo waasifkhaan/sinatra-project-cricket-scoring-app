@@ -12,5 +12,9 @@
   Player Name:<input type="text" name="team_name"></input>
   <input type="submit" value="Submit to enter game details!"></input>
 </form><br>
-
+<h2>Click the links below to view the scorecard! </h2>
+<%Game.all.each do |game| %>
+<h3><%=game.hometeam%> VS <%=game.awayteam%> and won by <%=game.result%></h3>
+<%end%>
+<h4>The most recent game <%=@game.hometeam%> VS <%=@game.awayteam%> and won by <%=@game.result%></h4>
 <a href="/logout">Logout</a>
