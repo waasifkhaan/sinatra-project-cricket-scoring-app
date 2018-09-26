@@ -40,6 +40,7 @@ class GamesController < ApplicationController
   end
 
   post '/games' do
+    binding.pry
 
         @game = Game.create(hometeam: params[:hometeam], awayteam: params[:awayteam],
          toss: params[:toss], result: params[:result] , extra_1: params[:extras_1], extra_2: params[:extras_2], total_1: params[:total_1],
@@ -70,6 +71,21 @@ class GamesController < ApplicationController
   end
     get '/games/:id' do
 
-        "Hello world"
+      @game = Game.find(params[:id])
+      @scores_1 = []
+      @scores_2 = []
+
+      arr = Score.where(game_id: params[:id])
+
+      # if player. team name is @game.hometeam then add the corresponding score to @scores_1
+      arr.each do |score|
+      if Team.find(Player.find(score.player_id).team_id).name == @game.hometeam
+        @scores_1 << score
+      else
+        @scores_2 << score
+      end
     end
+
+    erb :"games/show"
+  end
 end
