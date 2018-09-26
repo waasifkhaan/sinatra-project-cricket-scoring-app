@@ -1,0 +1,11 @@
+<h2>Add a new game!</h2>
+<h3>Pick the two teams that participated in this game</h2>
+<form action="/teamselection/players" method="POST">
+    <% Team.all.each do |team| %>
+      <label><%=team.name%></label>
+      <input id="<%= team.name %>" type="checkbox" name="teams[]" value="<%= team.id %>"><br>
+    <% end %><br></br>
+
+<br><br>
+<input type="submit" value="Submit to enter game details!"></input>
+</form>

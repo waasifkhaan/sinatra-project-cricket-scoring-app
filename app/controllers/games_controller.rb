@@ -4,25 +4,21 @@ class GamesController < ApplicationController
     erb :index
   end
 
-  get '/games/new' do
+  get '/teamselection' do
     if logged_in?
-      erb :'games/new'
+      erb :'games/teamselection'
     else
       redirect to '/login'
     end
   end
 
-  post '/games/teams' do
+  post '/teamselection/players' do
 
     @team_1 = Team.find_by(id: params[:teams][0])
     @team_2 = Team.find_by(id: params[:teams][1])
-    erb :'/games/new1'
+    erb :'/games/playerselection'
   end
-  post '/games/teams/players' do
-
-    # if params[:players_1].length == 0 || params[:players_2].length == 0
-    #   redirect to "/games/teams"
-    # else
+  post '/games/new' do
 
     @two_teams = []
     @two_teams << params[:team_1]
@@ -35,13 +31,11 @@ class GamesController < ApplicationController
     @players_2 = params[:players_2].map do |id|
       Player.find(id)
     end
-    erb :'/games/new2'
+    erb :'/games/new'
 
   end
 
   post '/games' do
-    binding.pry
-
         @game = Game.create(hometeam: params[:hometeam], awayteam: params[:awayteam],
          toss: params[:toss], result: params[:result] , extra_1: params[:extras_1], extra_2: params[:extras_2], total_1: params[:total_1],
          total_2: params[:total_2] )
