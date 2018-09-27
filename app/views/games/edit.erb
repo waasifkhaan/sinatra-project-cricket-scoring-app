@@ -30,15 +30,15 @@
 <% @scores_1.each do |score| %>
   <tr>
     <td><label><%=Player.find(score.player_id).name%></label></td>
-    <td><input style="background-color:powderblue;  id="<%=score.player_id %>" type="number" name="players_1[<%=score.player_id%>]" value="score.run" > </td>
+    <td><input style="background-color:powderblue;"  id="<%=score.player_id %>" type="number" name="players_1[<%=score.player_id%>]" value="<%=score.run%>" > </td>
     <% end %><br></br>
     <tr>
       <th>Extras</th>
-      <th><input style="background-color:grey; id="extras_1" value="@game.extra_1" type="number" name="extras_1" ></input></th>
+      <th><input style="background-color:grey;" id="extras_1" value="<%=@game.extra_1%>" type="number" name="extras_1" ></input></th>
     </tr>
     <tr>
       <th>Total</th>
-      <th><input style="background-color:pink; id="total_1" value="@game.total_1" type="number" name="total_1"></input></th>
+      <th><input style="background-color:pink;" id="total_1" value="<%=@game.total_1%>" type="number" name="total_1"></input></th>
     </tr>
   </table><br></br>
 
@@ -51,15 +51,15 @@
 <% @scores_2.each do |score| %>
   <tr>
     <td><label><%=Player.find(score.player_id).name%></label></td>
-    <td><input style="background-color:powderblue"; value="<%=score.run%>" id="<%= score.player_id%>" type="number" name="players_2[<%=score.player_id%>]"></td>
+    <td><input style="background-color:powderblue;" value="<%=score.run%>" id="<%= score.player_id%>" type="number" name="players_2[<%=score.player_id%>]"></td>
     <% end %><br></br>
     <tr>
       <th>Extras</th>
-      <th><input style="background-color:grey;" id="extras_2" value="@game.extra_2" type="number" name="extras_2"></input></th>
+      <th><input style="background-color:grey;" id="extras_2" value="<%=@game.extra_2%>" type="number" name="extras_2"></input></th>
     </tr>
     <tr>
       <th>Total</th>
-      <th><input style="background-color:pink;"  id="total_2" value="@game.total_2" type="number" name="total_2"></input></th>
+      <th><input style="background-color:pink;"  id="total_2" value="<%=@game.total_2%>" type="number" name="total_2"></input></th>
     </tr>
   </table><br></br>
 

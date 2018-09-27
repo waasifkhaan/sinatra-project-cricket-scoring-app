@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
 
   get '/games' do
-    erb :index
+    erb :"games/index"
   end
 
   get '/teamselection' do
@@ -13,18 +13,14 @@ class GamesController < ApplicationController
   end
 
   post '/teamselection/players' do
-
-    @team_1 = Team.find_by(id: params[:teams][0])
-    @team_2 = Team.find_by(id: params[:teams][1])
+    @team_1 = Team.find(params[:hometeam])
+    @team_2 = Team.find(params[:awayteam])
     erb :'/games/playerselection'
   end
   post '/games/new' do
-
     @two_teams = []
     @two_teams << params[:team_1]
     @two_teams << params[:team_2]
-
-    # binding.pry
     @players_1 = params[:players_1].map do |id|
       Player.find(id)
     end
@@ -32,7 +28,6 @@ class GamesController < ApplicationController
       Player.find(id)
     end
     erb :'/games/new'
-
   end
 
   post '/games' do
@@ -106,20 +101,13 @@ class GamesController < ApplicationController
       total_2: params[:total_2] )
       @scores_1 = params[:players_1].map do |player|
         @score1 =  Score.where(game_id: params[:id], player_id: player[0])
-          binding.pry
-        @score1.run = player[1]
-        # @score1.update(game_id: @game.id, player_id: player[0], run: player[1])
-        @score1.update
-        @score1
-
+        @score1[0].update(game_id: params[:id], player_id: player[0], run: player[1])
+        @score1[0]
       end
       @scores_2 = params[:players_2].map do |player|
         @score2 =  Score.where(game_id: params[:id], player_id: player[0])
-        @score2.run = player[1]
-        # @score2.update(game_id: @game.id, player_id: player[0], run: player[1])
-        @score.update
-        @score2
-
+        @score2[0].update(game_id: params[:id], player_id: player[0], run: player[1])
+        @score2[0]
     end
     erb :"games/show"
   end
