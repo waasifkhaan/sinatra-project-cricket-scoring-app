@@ -46,6 +46,7 @@ class GamesController < ApplicationController
         @score_1.game_id = @game.id
         @score_1.save
         @score_1
+
       end
       @scores_2 = params[:players_2].map do |player|
         @player = Player.find_by(id: player[0])
@@ -84,10 +85,10 @@ class GamesController < ApplicationController
       @scores_1 = []
       @scores_2 = []
 
-      arr = Score.where(game_id: params[:id])
+      scores = @game.scores
 
       # if player. team name is @game.hometeam then add the corresponding score to @scores_1
-      arr.each do |score|
+      scores.each do |score|
       if Team.find(Player.find(score.player_id).team_id).name == @game.hometeam
         @scores_1 << score
       else
@@ -98,20 +99,28 @@ class GamesController < ApplicationController
     end
 
   post "/games/:id" do
-    binding.pry
+
     @game = Game.find(params[:id])
       @game.update(hometeam: params[:hometeam], awayteam: params[:awayteam],
       toss: params[:toss], result: params[:result] , extra_1: params[:extras_1], extra_2: params[:extras_2], total_1: params[:total_1],
       total_2: params[:total_2] )
-      params[:players_1].each do |player|
-        Player.find_by(id: player[0])
-        @score = Score.new(run: player[1])
-        @score.update
-      end
-      params[:players_2].each do |player|
-        Player.find_by(id: player[0])
-        @score1= Score.new(run: player[1])
+      @scores_1 = params[:players_1].map do |player|
+        @score1 =  Score.where(game_id: params[:id], player_id: player[0])
+          binding.pry
+        @score1.run = player[1]
+        # @score1.update(game_id: @game.id, player_id: player[0], run: player[1])
         @score1.update
+        @score1
+
+      end
+      @scores_2 = params[:players_2].map do |player|
+        @score2 =  Score.where(game_id: params[:id], player_id: player[0])
+        @score2.run = player[1]
+        # @score2.update(game_id: @game.id, player_id: player[0], run: player[1])
+        @score.update
+        @score2
+
     end
+    erb :"games/show"
   end
 end

@@ -34,7 +34,6 @@ class UsersController < ApplicationController
    if @user.authenticate(params[:password])
       # binding.pry
      session[:user_id] = @user.id
-
      redirect to "/games"
    else
      redirect to '/signup'
