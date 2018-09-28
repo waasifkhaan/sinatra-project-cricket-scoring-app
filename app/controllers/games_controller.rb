@@ -111,4 +111,14 @@ class GamesController < ApplicationController
     end
     erb :"games/show"
   end
+
+  delete '/games/:id/delete' do
+    if logged_in?
+      @game = Game.find(params[:id])
+      @game.delete
+      redirect to '/games'
+    else
+      redirect to '/login'
+    end
+  end
 end

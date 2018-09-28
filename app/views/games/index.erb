@@ -1,7 +1,13 @@
-<h2>Click the links below to view the scorecard! </h2>
+<h2><a href="/teamselection">Add a new game<a/></h2>
+  <h2><a href="/teams/new">Add a new team<a/></h2><br>
+<h2><a href="/players/new">Add a new Player<a/></h2><br>
+<h2>Scorecards!</h2>
+
 <%@game_reverse_order = Game.all.reverse%>
 <%@game_reverse_order.each do |game| %>
 <h3><a href="games/<%=game.id%>"><%=game.hometeam%> VS <%=game.awayteam%> and won by <%=game.result%></h3></a>
 <%end%>
+
+
 
 <a href="/logout">Logout</a>

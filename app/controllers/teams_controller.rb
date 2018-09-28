@@ -6,7 +6,7 @@ class TeamsController < ApplicationController
 
   post '/teams' do
     Team.create(name: params[:team_name], club_id: params[:club_name])
-    redirect to '/games'
-
-  end
+    @teams = Team.all
+    erb :"teams/index"
+    end
 end
