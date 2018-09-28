@@ -6,37 +6,38 @@ class UsersController < ApplicationController
   end
 
   get '/signup' do
-    erb :'users/signup', locals: {message: "Please sign up before you sign in"}
+    if logged_in?
+      redirect to "/games"
+    else
+      erb :'users/signup', locals: {message: "Please sign up before you sign in"}
+    end
   end
 
   post '/signup' do
-
     if params[:username]== ""|| params[:email_address]== "" || params[:password]== "" || params[:password] != params[:passwordmatch]
       redirect to "/signup"
     else
       @user = User.create(name: params[:name], username: params[:username], email_address: params[:email_address], password: params[:password])
-      session[:user_id] = @user.id
       redirect to "/login"
     end
   end
 
   get '/login' do
-    if !logged_in?
-      erb :'users/login'
+    if logged_in?
+       redirect to "/games"
     else
-      redirect to '/logout'
+      erb :"/users/login"
     end
   end
 
   post '/login' do
 
    @user = User.find_by(:username => params[:username])
-   if @user.authenticate(params[:password])
-      # binding.pry
+   if @user && @user.authenticate(params[:password])
      session[:user_id] = @user.id
      redirect to "/games"
    else
-     redirect to '/signup'
+     redirect to '/login'
    end
  end
 
