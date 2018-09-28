@@ -14,11 +14,12 @@ class UsersController < ApplicationController
   end
 
   post '/signup' do
+    binding.pry
     if params[:username]== ""|| params[:email_address]== "" || params[:password]== "" || params[:password] != params[:passwordmatch]
       redirect to "/signup"
     else
       @user = User.create(name: params[:name], username: params[:username], email_address: params[:email_address], password: params[:password])
-      redirect to "/login"
+      erb :"users/show"
     end
   end
 
