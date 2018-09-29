@@ -149,7 +149,7 @@ delete '/games/:id/delete' do
         redirect to '/games'
     else
       #flash message user does not have authority to delete game
-      redirect to "/games/#{params[:id]}/edit"
+      redirect to "/games/#{params[:id]}"
     end
   else
     redirect to '/login'
