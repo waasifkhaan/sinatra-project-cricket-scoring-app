@@ -1,5 +1,6 @@
+require 'rack-flash'
 class GamesController < ApplicationController
-
+  use Rack::Flash
 get '/games' do
   if logged_in?
     erb :"games/index"
@@ -111,6 +112,7 @@ get '/games/:id/edit' do
     erb :"games/edit"
     else
       #add flash message
+      flash[:message] = "You do not have access to edit this game"
     redirect to "/games/#{params[:id]}"
     end
   else
@@ -149,6 +151,7 @@ delete '/games/:id/delete' do
         redirect to '/games'
     else
       #flash message user does not have authority to delete game
+      flash[:message] = "You do not have access to delete this game"
       redirect to "/games/#{params[:id]}"
     end
   else

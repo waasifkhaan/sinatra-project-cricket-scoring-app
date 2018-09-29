@@ -14,14 +14,11 @@ class UsersController < ApplicationController
   end
 
   post '/signup' do
-
-  if params[:username]== ""|| params[:email_address]== "" || params[:password]== "" || params[:password] != params[:passwordmatch]
+    if params[:username]== ""|| params[:email_address]== "" || params[:password]== "" || params[:password] != params[:passwordmatch]
       redirect to "/signup"
     else
-
-      @user = User.create(name: params[:name], username: params[:username], email_address: params[:email_address], password_digest: params[:password])
-
-      erb :"users/show"
+      @user = User.create(name: params[:name], username: params[:username], email_address: params[:email_address], password: params[:password])
+        erb :"users/show"
     end
   end
 
@@ -34,17 +31,18 @@ class UsersController < ApplicationController
   end
 
   post '/login' do
-
-   @user = User.find_by(username: params[:username])
-
-  #  if @user && @user.authenticate(params[:password])
-
-     session[:user_id] = @user.id
-     redirect to "/games"
-  #  else
-  #    redirect to '/login'
-  #  end
- end
+    if !logged_in?
+      @user = User.find_by(username: params[:username])
+        if @user && @user.authenticate(params[:password])
+          session[:user_id] = @user.id
+          redirect to "/games"
+        else
+          redirect to "/login"
+        end
+    else
+     redirect to '/games'
+    end
+  end
 
   get '/logout' do
     if logged_in?
