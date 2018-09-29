@@ -19,7 +19,11 @@
         <%= yield %>
 
       <footer class="branding">
-        <small>&copy; 2018 <strong>SinatraProjectCricketScoringApp</strong></small>
+        <small>&copy; 2018 <strong>SinatraProjectCricketScoringApp</strong></small><br>
+        <%if logged_in?%>
+        <small style="background-color:pink;"><strong >Signed in as "<%=User.find_by(id: session[:user_id]).name%>"</strong></small>
+        <%else%>
+        <%end%>
       </footer>
     </div>
 

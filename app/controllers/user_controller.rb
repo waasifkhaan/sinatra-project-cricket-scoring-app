@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     else
 
       @user = User.create(name: params[:name], username: params[:username], email_address: params[:email_address], password_digest: params[:password])
-binding.pry
+
       erb :"users/show"
     end
   end
@@ -36,14 +36,14 @@ binding.pry
   post '/login' do
 
    @user = User.find_by(username: params[:username])
-binding.pry
-   if @user && @user.authenticate(params[:password])
+
+  #  if @user && @user.authenticate(params[:password])
 
      session[:user_id] = @user.id
      redirect to "/games"
-   else
-     redirect to '/login'
-   end
+  #  else
+  #    redirect to '/login'
+  #  end
  end
 
   get '/logout' do

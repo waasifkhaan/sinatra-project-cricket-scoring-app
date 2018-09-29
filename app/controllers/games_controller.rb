@@ -97,25 +97,25 @@ end
 get '/games/:id/edit' do
   if logged_in?
     @game = Game.find(params[:id])
-    @scores_1 = []
-    @scores_2 = []
-    scores = @game.scores
-    scores.each do |score|
-      if Team.find(Player.find(score.player_id).team_id).name == @game.hometeam
-        @scores_1 << score
-      else
-        @scores_2 << score
-      end
-    end
-    if @game && @game.user == current_user
-      erb :"games/edit"
+      if @game && @game.user == current_user
+        @scores_1 = []
+        @scores_2 = []
+          scores = @game.scores
+            scores.each do |score|
+              if Team.find(Player.find(score.player_id).team_id).name == @game.hometeam
+            @scores_1 << score
+              else
+            @scores_2 << score
+              end
+          end
+    erb :"games/edit"
     else
       #add flash message
-      redirect to '/games'
+    redirect to "/games/#{params[:id]}"
     end
   else
     redirect to '/login'
-   end
+  end
  end
 post "/games/:id" do
    if logged_in?
@@ -140,13 +140,16 @@ post "/games/:id" do
 end
 
 delete '/games/:id/delete' do
+
   if logged_in?
   @game = Game.find(params[:id])
     if @game && @game.user == current_user
-      @game.delete
+      @game.destroy
+
+        redirect to '/games'
     else
       #flash message user does not have authority to delete game
-      redirect to '/games'
+      redirect to "/games/#{params[:id]}/edit"
     end
   else
     redirect to '/login'
