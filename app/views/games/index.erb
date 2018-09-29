@@ -8,6 +8,13 @@
 <h3><a href="games/<%=game.id%>"><%=game.hometeam%> VS <%=game.awayteam%> and won by <%=game.result%></h3></a>
 <%end%>
 
+<h2><%=current_user.name%> games!</h2>
+
+<%@game_current_user = current_user.games.reverse%>
+<%@game_current_user.each do |game| %>
+<h3><a href="games/<%=game.id%>"><%=game.hometeam%> VS <%=game.awayteam%> and won by <%=game.result%></h3></a>
+<%end%>
+
 
 
 <a href="/logout">Logout</a>
