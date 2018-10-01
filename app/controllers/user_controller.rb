@@ -1,25 +1,35 @@
+require 'rack-flash'
 class UsersController < ApplicationController
+  use Rack::Flash
 
   get '/users/:slug' do
     @user = User.find_by_slug(params[:slug])
     erb :'users/show'
   end
 
-  get '/signup' do
-    if logged_in?
-      redirect to "/games"
-    else
-      erb :'users/signup', locals: {message: "Please sign up before you sign in"}
-    end
+get '/signup' do
+
+  if flash[:errors]
+    @errors = flash[:errors].messages
+  flash[:errors] = nil
+  elsif logged_in?
+    redirect to "/games"
+  else
+    erb :'users/signup'
   end
+end
 
   post '/signup' do
-    if params[:username]== ""|| params[:email_address]== "" || params[:password]== "" || params[:password] != params[:passwordmatch]
-      redirect to "/signup"
+
+    @user = User.new(name: params[:name], username: params[:username], email_address: params[:email_address], password: params[:password])
+    if @user.valid?
+      @user.save
+      redirect to "/login"
     else
-      @user = User.create(name: params[:name], username: params[:username], email_address: params[:email_address], password: params[:password])
-        erb :"users/show"
+      flash[:errors] = @user.errors
+      redirect to "/signup"
     end
+
   end
 
   get '/login' do
