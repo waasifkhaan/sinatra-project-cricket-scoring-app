@@ -11,13 +11,14 @@ get '/signup' do
   if logged_in?
       redirect to "/games"
   else
-    if flash[:errors]
-      @errors = flash[:errors].messages
-      flash[:errors] = nil
-    end
-      erb :'users/signup'
+    # if flash[:errors]
+    #   @errors = flash[:errors].messages
+    #   flash[:errors] = nil
+    # end
+    erb :'users/signup'
   end
 end
+
 
   post '/signup' do
 
@@ -27,7 +28,7 @@ end
       redirect to "/login"
     else
       flash[:errors] = @user.errors
-      binding.pry
+
       redirect to "/signup"
 
     end
