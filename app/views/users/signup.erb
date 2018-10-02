@@ -8,14 +8,6 @@
   <input type="submit" value="submit">
 </form>
 <h1>Errors !</h1>
-
-
-<%if @errors.any?%>
-<ul>
-  <li><%= @errors[0]%></li>
-
-</ul>
-<%else%>
-
-
-<%end%>
+  <%= @errors[:name].each do |message| %>
+  <%= message %>
+  <% end %>

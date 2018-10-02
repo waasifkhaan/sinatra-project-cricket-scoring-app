@@ -8,14 +8,14 @@ class UsersController < ApplicationController
   end
 
 get '/signup' do
-
-  if flash[:errors]
-    @errors = flash[:errors].messages
-  flash[:errors] = nil
-  elsif logged_in?
-    redirect to "/games"
+  if logged_in?
+      redirect to "/games"
   else
-    erb :'users/signup'
+    if flash[:errors]
+      @errors = flash[:errors].messages
+      flash[:errors] = nil
+    end
+      erb :'users/signup'
   end
 end
 
@@ -27,7 +27,9 @@ end
       redirect to "/login"
     else
       flash[:errors] = @user.errors
+      binding.pry
       redirect to "/signup"
+
     end
 
   end
