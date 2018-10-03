@@ -15,6 +15,9 @@
 <h3><a href="games/<%=game.id%>"><%=game.hometeam%> VS <%=game.awayteam%> and won by <%=game.result%></h3></a>
 <%end%>
 
+<% if flash.has?(:messages) %>
+<p><font color="red"><%=flash[:messages]%></font></p>
+<%end%>
 
 
 <a href="/logout">Logout</a>

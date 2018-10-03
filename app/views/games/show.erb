@@ -57,4 +57,10 @@
   <input type="submit" value="Delete game">
 </form><br>
 <% end %>
+
+
+<% if flash.has?(:messages) %>
+<p><font color="red"><%=flash[:messages]%></font></p>
+<%end%>
+
 <a href="/games">View all Scorecards!</a><br>

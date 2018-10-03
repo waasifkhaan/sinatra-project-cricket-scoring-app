@@ -1,6 +1,6 @@
-require 'rack-flash'
+
 class TeamsController < ApplicationController
-use Rack::Flash
+
   get '/teams/new' do
     erb :"teams/new"
   end

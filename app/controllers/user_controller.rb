@@ -7,28 +7,24 @@ class UsersController < ApplicationController
     erb :'users/show'
   end
 
-get '/signup' do
-  if logged_in?
-    redirect to "/games"
-  else
-    erb :'users/signup'
+  get '/signup' do
+    if logged_in?
+      redirect to "/games"
+    else
+      erb :'users/signup'
+    end
   end
-end
 
 
   post '/signup' do
-
     @user = User.new(name: params[:name], username: params[:username], email_address: params[:email_address], password: params[:password])
     if @user.valid?
       @user.save
       redirect to "/login"
     else
       flash[:errors] = @user.errors
-
-      redirect to "/signup"
-
+        redirect to "/signup"
     end
-
   end
 
   get '/login' do
@@ -42,17 +38,15 @@ end
   post '/login' do
     if !logged_in?
       @user = User.find_by(username: params[:username])
-        if @user && @user.authenticate(params[:password])
-          session[:user_id] = @user.id
+      if @user && @user.authenticate(params[:password])
+        session[:user_id] = @user.id
           redirect to "/games"
-        else
-
-          flash[:messages] = "User does not exist"
-
+      else
+        flash[:messages] = "User does not exist"
           redirect to "/login"
-        end
+      end
     else
-     redirect to '/games'
+      redirect to '/games'
     end
   end
 
@@ -64,5 +58,4 @@ end
       redirect to '/'
     end
   end
-
 end

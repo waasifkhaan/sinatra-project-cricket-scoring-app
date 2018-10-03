@@ -1,9 +1,0 @@
-<h2><%=@team_1.name %><br></br></h2>
-<%@team_1.players.each_with_index do |player,i|%>
-<%="#{i+1}. #{player.name}"%><br>
-<%end%> <br></br>
-
-<h2><%=@team_2.name %></h2>
-<%@team_2.players.each do |player|%>
-<%=player.name%><br>
-<%end%>

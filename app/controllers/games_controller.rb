@@ -1,65 +1,69 @@
 require 'rack-flash'
 class GamesController < ApplicationController
   use Rack::Flash
-get '/games' do
-  if logged_in?
-    erb :"games/index"
-  else
-    redirect to "/login"
-  end
-end
 
-get '/teamselection' do
-  if logged_in?
-    erb :'games/teamselection'
-  else
-    redirect to '/login'
+  get '/games' do
+    if logged_in?
+      erb :"games/index"
+    else
+      redirect to "/login"
+    end
   end
-end
 
-post '/teamselection/players' do
-  if logged_in?
-    @team_1 = Team.find(params[:hometeam])
-    @team_2 = Team.find(params[:awayteam])
-    erb :'/games/playerselection'
-  else
+  get '/teamselection' do
+    if logged_in?
+      erb :'games/teamselection'
+    else
     redirect to '/login'
+    end
   end
-end
-post '/games/new' do
-  if logged_in?
-    @two_teams = []
-    @two_teams << params[:team_1]
-    @two_teams << params[:team_2]
-    @players_1 = params[:players_1].map do |id|
+
+  post '/teamselection/players' do
+    if logged_in?
+      @team_1 = Team.find(params[:hometeam])
+      @team_2 = Team.find(params[:awayteam])
+      erb :'/games/playerselection'
+    else
+      redirect to '/login'
+    end
+  end
+
+  post '/games/new' do
+    if logged_in?
+      @two_teams = []
+      @two_teams << params[:team_1]
+      @two_teams << params[:team_2]
+
+      @players_1 = params[:players_1].map do |id|
       Player.find(id)
     end
     @players_2 = params[:players_2].map do |id|
       Player.find(id)
     end
-    erb :'/games/new'
-  else
-    redirect to '/login'
+      erb :'/games/new'
+    else
+      redirect to '/login'
+    end
   end
-end
 
-post '/games' do
-  if logged_in?
-    @game = Game.new(hometeam: params[:hometeam], awayteam: params[:awayteam],
-    toss: params[:toss], result: params[:result] , extra_1: params[:extras_1], extra_2: params[:extras_2], total_1: params[:total_1],
-    total_2: params[:total_2] )
-    @game.user_id = current_user.id
-    current_user.games << @game
-    @scores_1 = params[:players_1].map do |player|
+  post '/games' do
+    if logged_in?
+      @game = Game.new(hometeam: params[:hometeam], awayteam: params[:awayteam],
+      toss: params[:toss], result: params[:result] , extra_1: params[:extras_1], extra_2: params[:extras_2], total_1: params[:total_1],
+      total_2: params[:total_2] )
+
+      @game.user_id = current_user.id
+        current_user.games << @game
+
+      @scores_1 = params[:players_1].map do |player|
         @player = Player.find_by(id: player[0])
         @score_1 = Score.new(run: player[1])
         @score_1.player_id = @player.id
         @score_1.game_id = @game.id
         @score_1.save
         @score_1
-    end
-    def scores(params)
-      scores = params.map do |player|
+      end
+      @scores_2 = params[:players_2].map do |player|
         @player = Player.find_by(id: player[0])
         @score_2 = Score.new(run: player[1])
         @score_2.player_id = @player.id
@@ -67,75 +71,68 @@ post '/games' do
         @score_2.save
         @score_2
       end
-      scores
-    end
-    @scores_2 = params[:players_2].map do |player|
-        @player = Player.find_by(id: player[0])
-        @score_2 = Score.new(run: player[1])
-        @score_2.player_id = @player.id
-        @score_2.game_id = @game.id
-        @score_2.save
-        @score_2
-    end
     if @game.save
       erb :'games/show'
     else
       redirect to "/teamselection"
     end
-  else
-    redirect to "/login"
-  end
-end
-
-get '/games/:id' do
-  if logged_in?
-  @game = Game.find(params[:id])
-  @scores_1 = []
-  @scores_2 = []
-  arr = @game.scores
-  arr.each do |score|
-    if Team.find(Player.find(score.player_id).team_id).name == @game.hometeam
-      @scores_1 << score
     else
-      @scores_2 << score
+      redirect to "/login"
     end
   end
-  erb :"games/show"
-  else
-    redirect to "/login"
-  end
-end
 
-get '/games/:id/edit' do
-  if logged_in?
-    @game = Game.find(params[:id])
+  get '/games/:id' do
+    if logged_in?
+      @game = Game.find(params[:id])
+      @scores_1 = []
+      @scores_2 = []
+      arr = @game.scores
+      arr.each do |score|
+        if Team.find(Player.find(score.player_id).team_id).name == @game.hometeam
+          @scores_1 << score
+        else
+          @scores_2 << score
+        end
+      end
+        erb :"games/show"
+    else
+      redirect to "/login"
+    end
+  end
+
+  get '/games/:id/edit' do
+    if logged_in?
+      @game = Game.find(params[:id])
+
       if @game && @game.user == current_user
         @scores_1 = []
         @scores_2 = []
-          scores = @game.scores
-            scores.each do |score|
-              if Team.find(Player.find(score.player_id).team_id).name == @game.hometeam
-            @scores_1 << score
-              else
-            @scores_2 << score
-              end
+        scores = @game.scores
+          scores.each do |score|
+            if Team.find(Player.find(score.player_id).team_id).name == @game.hometeam
+              @scores_1 << score
+            else
+              @scores_2 << score
+            end
           end
-    erb :"games/edit"
-    else
-      #add flash message
+          erb :"games/edit"
+      else
+
       flash[:message] = "You do not have access to edit this game"
-    redirect to "/games/#{params[:id]}"
+        redirect to "/games/#{params[:id]}"
+      end
+    else
+      redirect to '/login'
     end
-  else
-    redirect to '/login'
   end
- end
-post "/games/:id" do
+
+  post "/games/:id" do
    if logged_in?
     @game = Game.find(params[:id])
       @game.update(hometeam: params[:hometeam], awayteam: params[:awayteam],
       toss: params[:toss], result: params[:result] , extra_1: params[:extras_1], extra_2: params[:extras_2], total_1: params[:total_1],
       total_2: params[:total_2] )
+
       @scores_1 = params[:players_1].map do |player|
         @score1 =  Score.where(game_id: params[:id], player_id: player[0])
         @score1[0].update(game_id: params[:id], player_id: player[0], run: player[1])
@@ -145,28 +142,27 @@ post "/games/:id" do
         @score2 =  Score.where(game_id: params[:id], player_id: player[0])
         @score2[0].update(game_id: params[:id], player_id: player[0], run: player[1])
         @score2[0]
-    end
-    erb :"games/show"
-  else
-  redirect to "/login"
-  end
-end
+      end
 
-delete '/games/:id/delete' do
+    flash[:messages] = "Scorecard Updated"
+      erb :"games/show"
+   else
+     redirect to "/login"
+   end
+ end
 
+ delete '/games/:id/delete' do
   if logged_in?
-  @game = Game.find(params[:id])
+     @game = Game.find(params[:id])
     if @game && @game.user == current_user
       @game.destroy
-
+      flash[:messages] = "Game deleted"
         redirect to '/games'
     else
-      #flash message user does not have authority to delete game
-      flash[:message] = "You do not have access to delete this game"
       redirect to "/games/#{params[:id]}"
     end
   else
     redirect to '/login'
   end
-end
+  end
 end
