@@ -71,6 +71,18 @@
   .sidebar ul {
     font-size: 14px;
   }
+  input[type=text] {
+  border: 1px dotted #999;
+  border-radius: 20;
+  background-color: skyblue;
+
+}
+input[type=password] {
+border: 2px dotted #999;
+border-radius: 20;
+background-color: pink;
+
+}
 
   .branding {
     clear: both;

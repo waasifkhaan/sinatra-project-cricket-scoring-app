@@ -49,9 +49,12 @@
 <h3><%=@game.result%> won the game!</h2>
   <footer style="background-color:lightblue; font color="red";">Game created by <%=User.find(@game.user_id).name%></footer>
 
+<%if @game.user_id == User.find(session[:user_id]).id%>
+
 <a href="/games/<%=@game.id%>/edit">Edit Scorecard</a><br></br>
 <form method="post" action="/games/<%=@game.id%>/delete">
   <input id="hidden" type="hidden" name="_method" value="DELETE">
   <input type="submit" value="Delete game">
 </form><br>
+<% end %>
 <a href="/games">View all Scorecards!</a><br>

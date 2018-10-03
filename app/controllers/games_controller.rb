@@ -58,6 +58,17 @@ post '/games' do
         @score_1.save
         @score_1
     end
+    def scores(params)
+      scores = params.map do |player|
+        @player = Player.find_by(id: player[0])
+        @score_2 = Score.new(run: player[1])
+        @score_2.player_id = @player.id
+        @score_2.game_id = @game.id
+        @score_2.save
+        @score_2
+      end
+      scores
+    end
     @scores_2 = params[:players_2].map do |player|
         @player = Player.find_by(id: player[0])
         @score_2 = Score.new(run: player[1])

@@ -1,15 +1,19 @@
 <h1>WElCOME TO THE  SIGN UP PAGE</h1>
 <form action="/signup" method="POST">
-  Name: <input type="text" name="name" placeholder="Donald Trump"><br>
-  Username: <input type="text" name="username" placeholder="username"><br>
-  Email Address: <input type="text" name="email_address" placeholder="Fwitter@email.com"><br>
-  Password: <input type="password" name="password" placeholder="password">
-  Confirm Password: <input type="password" name="passwordmatch" placeholder="password">
-  <input type="submit" value="submit">
+  Name: <input id="text" type="text" name="name" placeholder="Donald Trump"><br></br>
+  Username: <input id="text" type="text" name="username" placeholder="username"><br></br>
+  Email Address: <input id="text" type="email" name="email_address" placeholder="Fwitter@email.com"><br></br>
+  Password: <input id="text" type="password" name="password" placeholder="password"><br></br>
+  Confirm Password: <input id="text" type="password" name="passwordmatch" placeholder="confirm password"><br></br>
+  <input type="submit" value="Create User ">
 </form>
 
 <% if flash.has?(:errors) %>
   <% flash[:errors].messages.each do |key,value| %>
-    <%="#{key}:  #{value[0]}" %><br>
+  <ul style="color:red;"><%=key%>
+    <% value.each do |message|%>
+    <li style="color:grey;"><%=message %></li>
     <%end%>
+  </ul>
+<% end %>
 <% end %>
