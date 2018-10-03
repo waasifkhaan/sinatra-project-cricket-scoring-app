@@ -46,6 +46,9 @@ end
           session[:user_id] = @user.id
           redirect to "/games"
         else
+
+          flash[:messages] = "User does not exist"
+
           redirect to "/login"
         end
     else
