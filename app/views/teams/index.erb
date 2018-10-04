@@ -5,3 +5,7 @@
 
 <%end%>
 <a href="/games">HomePage</a>
+
+<% if flash.has?(:messages) %>
+<p><font color="red"><%=flash[:messages]%></font></p>
+<%end%>
