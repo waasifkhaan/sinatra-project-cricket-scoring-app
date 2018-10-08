@@ -1,3 +1,5 @@
-<p><%=@player.name%> created!</p><br>
-
 <a href="/games">HomePage</a>
+
+<% if flash.has?(:message) %>
+<p><font color="red"><%=flash[:message]%></font></p>
+<%end%>

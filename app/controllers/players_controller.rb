@@ -7,7 +7,7 @@ class PlayersController < ApplicationController
 
   post '/players' do
     @player = Player.create(name: params[:player_name], team_id: params[:team_name])
-
+    flash[:message] = "#{@player.name} saved with #{Team.find(@player.team_id).name}."
     erb :"players/index"
 
   end

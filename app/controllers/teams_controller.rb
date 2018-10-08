@@ -6,8 +6,8 @@ class TeamsController < ApplicationController
   end
 
   post '/teams' do
-    Team.create(name: params[:team_name], club_id: params[:club_name])
-    flash[:message] = "Team saved"
+    @team = Team.create(name: params[:team_name], club_id: params[:club_name])
+    flash[:message] = "#{@team.name} saved"
     @teams = Team.all
     erb :"teams/index"
     end
