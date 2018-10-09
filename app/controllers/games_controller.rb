@@ -4,6 +4,8 @@ class GamesController < ApplicationController
 
   get '/games' do
     if logged_in?
+
+      @message = flash[:messages]
       erb :"games/index"
     else
       redirect to "/login"

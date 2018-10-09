@@ -2,11 +2,6 @@ require 'rack-flash'
 class UsersController < ApplicationController
   use Rack::Flash
 
-  get '/users/:slug' do
-    @user = User.find_by_slug(params[:slug])
-    erb :'users/show'
-  end
-
   get '/signup' do
     if logged_in?
       redirect to "/games"
@@ -40,12 +35,14 @@ class UsersController < ApplicationController
       @user = User.find_by(username: params[:username])
       if @user && @user.authenticate(params[:password])
         session[:user_id] = @user.id
+        flash[:message] = "Welcome #{@user.name} to the cricket scoring applicaiton!"
           redirect to "/games"
       else
         flash[:messages] = "User does not exist"
           redirect to "/login"
       end
     else
+        
       redirect to '/games'
     end
   end
