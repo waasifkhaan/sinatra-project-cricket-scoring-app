@@ -20,11 +20,20 @@ class GamesController < ApplicationController
     end
   end
 
+
+
   post '/teamselection/players' do
+
     if logged_in?
+
       @team_1 = Team.find(params[:hometeam])
       @team_2 = Team.find(params[:awayteam])
-      erb :'/games/playerselection'
+        if @team_1.id == @team_2.id
+            flash[:messages] = "Home and away teams have to be different to proceed!"
+          erb :"games/teamselection"
+        else
+          erb:"games/playerselection"
+    end
     else
       redirect to '/login'
     end
@@ -39,7 +48,7 @@ class GamesController < ApplicationController
       @players_1 = params[:players_1].map do |id|
       Player.find(id)
     end
-    @players_2 = params[:players_2].map do |id|
+      @players_2 = params[:players_2].map do |id|
       Player.find(id)
     end
       erb :'/games/new'
@@ -65,6 +74,7 @@ class GamesController < ApplicationController
         @score_1.save
         @score_1
       end
+
       @scores_2 = params[:players_2].map do |player|
         @player = Player.find_by(id: player[0])
         @score_2 = Score.new(run: player[1])
@@ -105,7 +115,7 @@ class GamesController < ApplicationController
   get '/games/:id/edit' do
     if logged_in?
       @game = Game.find(params[:id])
-
+      # prevent the user from creating a game with the same team
       if @game && @game.user == current_user
         @scores_1 = []
         @scores_2 = []
@@ -115,6 +125,7 @@ class GamesController < ApplicationController
               @scores_1 << score
             else
               @scores_2 << score
+
             end
           end
           erb :"games/edit"

@@ -29,3 +29,6 @@
     </table><br>
 <input type="submit" value="Submit Teams"></input>
 </form>
+<% if flash.has?(:messages) %>
+<p><font color="red"><%=flash[:messages]%></font></p>
+<%end%>

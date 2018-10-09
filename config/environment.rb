@@ -1,5 +1,6 @@
 ENV['SINATRA_ENV'] ||= "development"
-
+#foo ||= bar
+#This will assign bar to foo if (and only if) foo is nil or false.
 
 require 'bundler/setup'
 Bundler.require(:default, ENV['SINATRA_ENV'])

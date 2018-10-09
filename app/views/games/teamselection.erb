@@ -14,3 +14,6 @@
         </select><br></br>
 <input type="submit" value="Select players!"></input>
 </form>
+<% if flash.has?(:messages) %>
+<p><font color="red"><%=flash[:messages]%></font></p>
+<%end%>
