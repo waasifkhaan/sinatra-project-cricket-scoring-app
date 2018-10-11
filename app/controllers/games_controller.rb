@@ -59,6 +59,7 @@ class GamesController < ApplicationController
 
   post '/games' do
     if logged_in?
+
       @game = Game.new(hometeam: params[:hometeam], awayteam: params[:awayteam],
       toss: params[:toss], result: params[:result] , extra_1: params[:extras_1], extra_2: params[:extras_2], total_1: params[:total_1],
       total_2: params[:total_2] )

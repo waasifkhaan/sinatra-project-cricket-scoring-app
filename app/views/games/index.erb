@@ -6,6 +6,7 @@
 
 <%@game_reverse_order = Game.all.reverse%>
 <%@game_reverse_order.each do |game| %>
+
 <h3><a href="games/<%=game.id%>"><%=game.hometeam%> VS <%=game.awayteam%> and won by <%=game.result%></h3></a>
 <%end%>
 
